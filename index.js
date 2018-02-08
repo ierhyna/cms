@@ -9,7 +9,7 @@ fs.readFile(template, {
   encoding: 'utf-8'
 }, (error, tpl) => {
   if (error) {
-    console.log(`Template ${source}/${file} cannot be read`);
+    console.log(`Template ${template} cannot be read`);
   } else {
 
     fs.readdir(source, (err, files) => {
