@@ -1,0 +1,10 @@
+{
+  "name": "cms",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Irina Sokolovskaya",
+  "license": "MIT",
+  "dependencies": {
+    "ejs": "^2.5.7"
+  }
+}
