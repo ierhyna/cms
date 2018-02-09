@@ -1,10 +1,9 @@
-const fs = require('fs');
+const fs = require("fs");
 const md = require("marked");
-const path = require('path');
+const path = require("path");
 
 const fileTree = {};
 
-// Renderer overwrite — lets get rid of ids for headers
 const renderer = new md.Renderer();
 renderer.heading = function(text, level) {
     return `<h${level}>${text}</h${level}>`;
@@ -14,7 +13,7 @@ function processmd(dir, ext) {
     buildTree(dir, ext)
         .filter(f => f.slice(f.lastIndexOf(".") + 1) === ext)
         .forEach(file => fileTree[file] = convert(file));
-    return fileTree
+    return fileTree;
 }
 
 function convert(file, ext) {
@@ -29,7 +28,7 @@ function buildTree(dir) {
         Array.prototype
         .concat(...fs.readdirSync(dir)
             .map(f => buildTree(path.join(dir, f)))) :
-        dir
+        dir;
 }
 
 module.exports = processmd;
