@@ -1,3 +1,3 @@
-const convert = require("./utils/convert")
+const processmd = require("./utils/processmd")
 
-console.log(convert("./content", "md"))
+console.log(processmd("./content", "md"))
