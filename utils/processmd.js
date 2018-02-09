@@ -1,6 +1,7 @@
 const fs = require("fs");
 const md = require("marked");
 const path = require("path");
+const unslash = require("./unslash");
 
 const fileTree = {};
 
@@ -12,7 +13,7 @@ renderer.heading = function(text, level) {
 function processmd(dir, ext) {
     buildTree(dir, ext)
         .filter(f => f.slice(f.lastIndexOf(".") + 1) === ext)
-        .forEach(file => fileTree[file] = convert(file));
+        .forEach(file => fileTree[unslash(file)] = convert(file));
     return fileTree;
 }
 

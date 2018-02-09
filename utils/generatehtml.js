@@ -2,14 +2,12 @@ const fs = require("fs");
 const makeDir = require('make-dir');
 const unslash = require("./unslash")
 
-function generateHTML(fileTree, directory) {
-    let dirs = Object.keys(fileTree).map(getDirectories).filter((d, i, a) => d && a.indexOf(d) === i);
-    dirs.forEach(dir => makeDir(`./publish/${directory}/${dir}`).catch(e => console.log(e)))
+module.exports = function(fileTree, directory) {
+    Object.keys(fileTree)
+        .forEach(file => {
+            const dir = directory + "/" + file.slice(file.indexOf("/") + 1, file.lastIndexOf("/"));
+            const fileName = "/" + file.slice(file.lastIndexOf("/") + 1, file.lastIndexOf(".")) + ".html"
+            makeDir(dir)
+                .then(r => fs.writeFileSync(dir + fileName, fileTree[file]))
+        })
 }
-
-function getDirectories(entry) {
-    entry = unslash(entry).split("/");
-    return entry.slice(1, entry.length - 1).join("/");
-}
-
-module.exports = generateHTML;
