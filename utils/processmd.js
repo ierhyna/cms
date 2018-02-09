@@ -12,24 +12,24 @@ renderer.heading = function(text, level) {
 
 function processmd(dir, ext) {
     buildTree(dir, ext)
+        .filter(f => f.slice(f.lastIndexOf(".") + 1) === ext)
         .forEach(file => fileTree[file] = convert(file));
     return fileTree
 }
 
-function convert(file) {
+function convert(file, ext) {
     const content = fs.readFileSync(file).toString('utf-8');
     return md(content, {
         renderer
     })
 }
 
-function buildTree(dir, ext) {
+function buildTree(dir) {
     return fs.statSync(dir).isDirectory() ?
         Array.prototype
         .concat(...fs.readdirSync(dir)
-            .map(f => buildTree(path.join(dir, f))))
-        .filter(f => f.substring(f.lastIndexOf(".") + 1) === ext) :
-        dir;
+            .map(f => buildTree(path.join(dir, f)))) :
+        dir
 }
 
 module.exports = processmd;
