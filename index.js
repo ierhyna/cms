@@ -13,15 +13,16 @@ const options = {
     dest: '_site/',
     template: fs.readFileSync(`${theme}/index.ejs`).toString('utf-8'),
     source: 'content/',
-    style: `${theme}/style.css`
+    styles: [`style.css`]
 }
-const files = fileTree(options.source);
+const files = fileTree(options.source, "md");
 const blogPostCache = [];
 
 // Process styles
-makeDir.sync(options.dest)
-fs.copyFile(options.style, `${options.dest}/style.css`, error =>
-    error && console.log(`Could not copy ${options. style}: ${error}`));
+makeDir.sync(options.dest);
+options.styles.forEach(style =>
+    fs.copyFile(`${options.theme}/${style}`, `${options.dest}/${style}`, error =>
+        error && console.log(`Could not copy ${style}: ${error}`)));
 
 // Process content
 files.forEach(file => {
@@ -33,9 +34,9 @@ files.forEach(file => {
             data
         })
     } catch (error) {
-        console.log(error)
+        console.log(`Error processing ${file}, skipping`);
     }
 });
 
 // Generate index.html
-buildIndex(files, options, cache);
+buildIndex(files, options, blogPostCache);

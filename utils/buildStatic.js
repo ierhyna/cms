@@ -2,6 +2,7 @@ const md = require('marked');
 const fm = require('front-matter');
 const ejs = require('ejs');
 const fs = require('fs');
+const moment = require("moment");
 
 module.exports = function(file, markdown, options) {
     const {
@@ -11,10 +12,13 @@ module.exports = function(file, markdown, options) {
     } = options;
 
     const content = fm(markdown);
+    const date = content.attributes.date ?
+        moment(content.attributes.date).format("dddd, MMMM Do YYYY, h:mm") :
+        ""
     const page = {
-      title: content.attributes.title,
-      date: content.attributes.date,
-      content: md(content.body)
+        date,
+        title: content.attributes.title,
+        content: md(content.body)
     };
 
     const html = ejs.render(template, {

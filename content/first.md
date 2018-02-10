@@ -1,18 +1,18 @@
 ---
-title: First Post
+title: 2016. Перерождение блога?
 date: 2018-02-09
 ---
 
-# First
-# Second
-hello first
+Привет, друзья! В этом посте я расскажу об итогах 2015 года, планах на 2016 год, и том, какие изменения ждут этот блог.
 
-This is some **bold** text
+Прошло много времени с тех пор, когда я предыдущий раз писала в блог. Не потому, что мне лень писать. Основная причина в том, что за последний год мои интересы несколько сдвинулись от WordPress к front-end разработке, моя основная работа теперь – верстка и JavaScript. И поэтому я не знала, что делать с блогом, писать в него или нет, и если писать, то на какие темы.
 
-Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+С другой стороны, возникла необходимость в пространстве, где можно было бы писать о всяких front-end штуках. Возник вопрос, создавать ли новый блог, и что делать с этим.
 
- - one
- - two
- - three
+После долгого периода размышлений, я решила, что лучшим решением будет изменение формата этого блога, чтобы его содержание отвечало моим нынешним интересам. Теперь, я буду писать тут не только о WordPress, но и о JavaScript, HTML5, и всем том, что я использую в своей ежедневной работе.
 
-Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+Старые записи о вордпресс останутся, и будут перенесены в специальную категорию “Работа с WordPress”. Вы по-прежднему можете задавать вопросы по их содержанию, и в меру своих возможностей и способностей я буду стараться на них отвечать.
+
+Также, я не бросаю поддержку своих WordPress плагинов, и, хотя у меня нет времени вести разработку также активно, как и раньше, баги я править буду.
+
+Что вы об этом думаете? Пишите в комментарии!
