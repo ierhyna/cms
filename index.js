@@ -1,3 +1,4 @@
+const path = require('path');
 const ejs = require('ejs');
 const fs = require('fs');
 const yaml = require('js-yaml');
@@ -7,9 +8,9 @@ const fm = require('front-matter');
 try {
   const config = yaml.safeLoad(fs.readFileSync('config.yaml', 'utf8'));
 
-  const theme = `themes/${config.theme}`;
-  const template = `${theme}/index.ejs`;
-  const style = `${theme}/style.css`;
+  const theme = path.resolve(`./themes/${config.theme}`);
+  const template = path.resolve(`${theme}/index.ejs`);
+  const style = path.resolve(`${theme}/style.css`);
 
   const source = 'content/';
   const dest = '_site/';
