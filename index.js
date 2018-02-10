@@ -2,6 +2,7 @@ const ejs = require('ejs');
 const fs = require('fs');
 const yaml = require('js-yaml');
 const md = require("marked");
+const fm = require('front-matter');
 
 try {
   const config = yaml.safeLoad(fs.readFileSync('config.yaml', 'utf8'));
@@ -32,11 +33,15 @@ try {
           fs.readFile(`${source}/${file}`, {
             encoding: 'utf-8'
           }, (error, data) => {
-
             if (error) {
               console.log(`File ${source}/${file} cannot be read`);
             } else {
-              const html = ejs.render(tpl, { content: md(data) });
+              const content = fm(data);
+              const html = ejs.render(tpl, {
+                title: content.attributes.title,
+                date: content.attributes.date,
+                content: md(content.body)
+              });
               const filename = `${file}`.replace('.md', '.html');
 
               fs.writeFile(`${dest}/${filename}`, html, error => {
