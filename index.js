@@ -42,10 +42,12 @@ try {
                         } else {
                             const content = fm(data);
                             const html = ejs.render(tpl, {
-                                template: path.resolve(theme, 'post'),
+                                template: `./${theme}/post`,
                                 title: content.attributes.title,
                                 date: content.attributes.date,
                                 content: md(content.body)
+                            }, {
+                              filename: 'index.ejs'
                             });
                             const filename = file.replace('.md', '.html');
 
