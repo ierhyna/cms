@@ -11,11 +11,15 @@ module.exports = function(file, markdown, options) {
     } = options;
 
     const content = fm(markdown);
+    const page = {
+      title: content.attributes.title,
+      date: content.attributes.date,
+      content: md(content.body)
+    };
+
     const html = ejs.render(template, {
         template: `./${theme}/post`,
-        title: content.attributes.title,
-        date: content.attributes.date,
-        content: md(content.body)
+        page
     }, {
         filename: 'index.ejs'
     });

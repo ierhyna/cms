@@ -2,15 +2,13 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title><%- title %></title>
+    <title><%- page.title %></title>
     <link rel="stylesheet" href="style.css">
   </head>
   <body>
     <main class="content">
       <%- include(template, {
-        title: title,
-        date: date,
-        content: content
+        page
       }); %>
     </main>
   </body>

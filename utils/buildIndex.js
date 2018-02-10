@@ -10,12 +10,14 @@ function buildIndex(files, options) {
     } = options;
 
     const fileNames = files.map(file => `${path.parse(file).name}.html`);
+    const page = {
+      title: 'Blog',
+      files: fileNames,
+    }
 
     const html = ejs.render(template, {
         template: `./${theme}/blog`,
-        title: 'Blog',
-        content: fileNames,
-        date: ''
+        page
     }, {
         filename: 'index.ejs'
     });
