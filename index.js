@@ -4,6 +4,7 @@ const yaml = require('js-yaml');
 const makeDir = require('make-dir');
 const fileTree = require("./utils/fileTree");
 const buildStatic = require("./utils/buildStatic");
+const buildIndex = require("./utils/buildIndex");
 
 const config = yaml.safeLoad(fs.readFileSync('config.yaml', 'utf8'));
 const theme = `themes/${config.theme}`;
@@ -24,3 +25,6 @@ fs.copyFile(options.style, `${options.dest}/style.css`, error =>
 fileTree(options.source)
     .forEach(file => fs.readFile(file, 'utf-8', (error, data) =>
         error ? console.log(error) : buildStatic(file, data, options)));
+
+// Generate index.html
+buildIndex(fileTree(options.source), options);
