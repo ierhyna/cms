@@ -5,6 +5,7 @@ const yaml = require('js-yaml');
 const md = require("marked");
 const fm = require('front-matter');
 const makeDir = require('make-dir');
+const fileTree = require("./utils/fileTree");
 
 try {
     const config = yaml.safeLoad(fs.readFileSync('config.yaml', 'utf8'));
@@ -25,46 +26,44 @@ try {
     });
 
     // Process content
-    fs.readdir(source, (err, files) => {
-        files.forEach(file => {
-            fs.readFile(`${source}/${file}`, {
-                encoding: 'utf-8'
-            }, (error, data) => {
-                if (error) {
-                    console.log(`File ${source}/${file} cannot be read`);
-                } else {
+    fileTree(source).forEach(file => {
+        fs.readFile(file, {
+            encoding: 'utf-8'
+        }, (error, data) => {
+            if (error) {
+                console.log(`File ${source}/${file} cannot be read`);
+            } else {
+                fs.readFile(template, {
+                    encoding: 'utf-8'
+                }, (error, tpl) => {
+                    if (error) {
+                        console.log(`Template ${template} cannot be read`);
+                    } else {
+                        const content = fm(data);
+                        const html = ejs.render(tpl, {
+                            template: `./${theme}/post`,
+                            title: content.attributes.title,
+                            date: content.attributes.date,
+                            content: md(content.body)
+                        }, {
+                            filename: 'index.ejs'
+                        });
+                        const filename = file.slice(file.lastIndexOf("/") + 1).replace('.md', '.html');
 
-                    fs.readFile(template, {
-                        encoding: 'utf-8'
-                    }, (error, tpl) => {
-                        if (error) {
-                            console.log(`Template ${template} cannot be read`);
-                        } else {
-                            const content = fm(data);
-                            const html = ejs.render(tpl, {
-                                template: `./${theme}/post`,
-                                title: content.attributes.title,
-                                date: content.attributes.date,
-                                content: md(content.body)
-                            }, {
-                              filename: 'index.ejs'
-                            });
-                            const filename = file.replace('.md', '.html');
+                        fs.writeFile(`${dest}/${filename}`, html, error => {
+                            if (error) {
+                                console.log("could not save file")
+                            } else {
+                                console.log("file saved as " + filename)
+                            }
+                        })
+                    }
+                });
 
-                            fs.writeFile(`${dest}/${filename}`, html, error => {
-                                if (error) {
-                                    console.log("could not save file")
-                                } else {
-                                    console.log("file saved as " + filename)
-                                }
-                            })
-                        }
-                    });
+            }
+        });
+    })
 
-                }
-            });
-        })
-    });
 } catch (e) {
     console.log(e);
 }
