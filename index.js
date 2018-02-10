@@ -14,30 +14,32 @@ try {
   const source = 'content/';
   const dest = '_site/';
 
-  fs.readFile(template, {
-    encoding: 'utf-8'
-  }, (error, tpl) => {
+  // Process styles
+  fs.copyFile(style, `${dest}/style.css`, error => {
     if (error) {
-      console.log(`Template ${template} cannot be read`);
-    } else {
-      // Process styles
-      fs.copyFile(style, `${dest}/style.css`, error => {
-        if (error) {
-          console.log(`Could not copy ${style}: ${error}`)
-        }
-      });
+      console.log(`Could not copy ${style}: ${error}`)
+    }
+  });
 
-      // Process content
-      fs.readdir(source, (err, files) => {
-        files.forEach(file => {
-          fs.readFile(`${source}/${file}`, {
+  // Process content
+  fs.readdir(source, (err, files) => {
+    files.forEach(file => {
+      fs.readFile(`${source}/${file}`, {
+        encoding: 'utf-8'
+      }, (error, data) => {
+        if (error) {
+          console.log(`File ${source}/${file} cannot be read`);
+        } else {
+
+          fs.readFile(template, {
             encoding: 'utf-8'
-          }, (error, data) => {
+          }, (error, tpl) => {
             if (error) {
-              console.log(`File ${source}/${file} cannot be read`);
+              console.log(`Template ${template} cannot be read`);
             } else {
               const content = fm(data);
               const html = ejs.render(tpl, {
+                type: 'page',
                 title: content.attributes.title,
                 date: content.attributes.date,
                 content: md(content.body)
@@ -52,12 +54,11 @@ try {
                 }
               })
             }
-
           });
-        })
-      });
 
-    }
+        }
+      });
+    })
   });
 } catch (e) {
   console.log(e);
