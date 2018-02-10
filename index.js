@@ -42,13 +42,13 @@ try {
                 date: content.attributes.date,
                 content: md(content.body)
               });
-              const filename = `${file}`.replace('.md', '.html');
+              const filename = file.replace('.md', '.html');
 
               fs.writeFile(`${dest}/${filename}`, html, error => {
                 if (error) {
                   console.log("could not save file")
                 } else {
-                  console.log("file saved as " + file + ".html")
+                  console.log("file saved as " + filename)
                 }
               })
             }
