@@ -1,4 +1,5 @@
 const ejs = require('ejs');
+const fm = require('front-matter');
 const fs = require('fs');
 const path = require('path');
 
@@ -10,6 +11,7 @@ function buildIndex(files, options) {
     } = options;
 
     const fileNames = files.map(file => `${path.parse(file).name}.html`);
+
     const page = {
       title: 'Blog',
       files: fileNames,

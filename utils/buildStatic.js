@@ -1,4 +1,4 @@
-const md = require("marked");
+const md = require('marked');
 const fm = require('front-matter');
 const ejs = require('ejs');
 const fs = require('fs');
