@@ -37,8 +37,9 @@ try {
               console.log(`File ${source}/${file} cannot be read`);
             } else {
               const html = ejs.render(tpl, { content: md(data) });
+              const filename = `${file}`.replace('.md', '.html');
 
-              fs.writeFile(`${dest}/${file}` + ".html", html, error => {
+              fs.writeFile(`${dest}/${filename}`, html, error => {
                 if (error) {
                   console.log("could not save file")
                 } else {
