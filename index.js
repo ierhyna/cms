@@ -1,6 +1,7 @@
 const ejs = require('ejs');
 const fs = require('fs');
 const yaml = require('js-yaml');
+const md = require("marked");
 
 try {
   const config = yaml.safeLoad(fs.readFileSync('config.yaml', 'utf8'));
@@ -35,7 +36,7 @@ try {
             if (error) {
               console.log(`File ${source}/${file} cannot be read`);
             } else {
-              const html = ejs.render(tpl, { content: data });
+              const html = ejs.render(tpl, { content: md(data) });
 
               fs.writeFile(`${dest}/${file}` + ".html", html, error => {
                 if (error) {
