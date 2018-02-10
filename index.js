@@ -12,8 +12,8 @@ try {
   const template = path.resolve(`${theme}/index.ejs`);
   const style = path.resolve(`${theme}/style.css`);
 
-  const source = 'content/';
-  const dest = '_site/';
+  const source = path.resolve('./content/');
+  const dest = path.resolve('./_site/');
 
   // Process styles
   fs.copyFile(style, `${dest}/style.css`, error => {
@@ -40,7 +40,7 @@ try {
             } else {
               const content = fm(data);
               const html = ejs.render(tpl, {
-                type: 'page',
+                template: path.resolve(theme, 'post'),
                 title: content.attributes.title,
                 date: content.attributes.date,
                 content: md(content.body)
