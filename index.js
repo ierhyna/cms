@@ -5,7 +5,10 @@ const yaml = require('js-yaml');
 try {
   const config = yaml.safeLoad(fs.readFileSync('config.yaml', 'utf8'));
 
-  const template = `themes/${config.theme}/index.ejs`;
+  const theme = `themes/${config.theme}`;
+  const template = `${theme}/index.ejs`;
+  const style = `${theme}/style.css`;
+
   const source = 'content/';
   const dest = '_site/';
 
@@ -15,7 +18,14 @@ try {
     if (error) {
       console.log(`Template ${template} cannot be read`);
     } else {
+      // Process styles
+      fs.copyFile(style, `${dest}/style.css`, error => {
+        if (error) {
+          console.log(`Could not copy ${style}: ${error}`)
+        }
+      });
 
+      // Process content
       fs.readdir(source, (err, files) => {
         files.forEach(file => {
           fs.readFile(`${source}/${file}`, {
