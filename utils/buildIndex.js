@@ -3,7 +3,7 @@ const fm = require('front-matter');
 const fs = require('fs');
 const path = require('path');
 
-function buildIndex(files, options) {
+function buildIndex(files, options, cache) {
     const {
         dest,
         template,
