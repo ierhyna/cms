@@ -1,3 +1,5 @@
-const convert = require("./utils/convert")
+const processmd = require("./utils/processmd");
+const generateHTML = require("./utils/generateHTML");
 
-console.log(convert("./content", "md"))
+const fileTree = processmd("content", "md");
+generateHTML(fileTree, "publish");

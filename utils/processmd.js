@@ -1,34 +1,35 @@
-const fs = require('fs');
+const fs = require("fs");
+const md = require("marked");
+const path = require("path");
+const unslash = require("./unslash");
 
-function processmd(file, done) {
+const fileTree = {};
 
-    return fs.readFileSync(file)
-        .toString('utf-8')
-        .split("\r\n")
-        .map(s => wrap(s.trim()))
-        .join("");
+const renderer = new md.Renderer();
+renderer.heading = function(text, level) {
+    return `<h${level}>${text}</h${level}>`;
+};
+
+function processmd(dir, ext) {
+    buildTree(dir, ext)
+        .filter(f => f.slice(f.lastIndexOf(".") + 1) === ext)
+        .forEach(file => fileTree[unslash(file)] = convert(file));
+    return fileTree;
 }
 
-function wrap(string) {
-    if (!string) {
-        return ("<br>")
-    }
-    const text = string.substring(string.indexOf(" ") + 1);
-    const fmt = string.split(" ")[0];
-    let el = "";
+function convert(file, ext) {
+    const content = fs.readFileSync(file).toString('utf-8');
+    return md(content, {
+        renderer
+    })
+}
 
-    switch (fmt) {
-        case "#":
-            el = `<h1>${text}</h1>`;
-            break;
-        case "##":
-            el = `<h2>${text}</h2>`;
-            break;
-        default:
-            el = `<p>${string}</p>`;
-            break;
-    }
-    return el;
+function buildTree(dir) {
+    return fs.statSync(dir).isDirectory() ?
+        Array.prototype
+        .concat(...fs.readdirSync(dir)
+            .map(f => buildTree(path.join(dir, f)))) :
+        dir;
 }
 
 module.exports = processmd;
