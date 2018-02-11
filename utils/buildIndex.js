@@ -11,18 +11,19 @@ function buildIndex(files, options, posts) {
         theme
     } = options;
 
-
-    const fmPosts = posts.map(post => {
-        const content = fm(post.data);
-        return {
-            file: `${path.parse(post.file).name}.html`,
-            date: content.attributes.date ?
-                moment(content.attributes.date).format('YYYY/MM/DD') :
-                'No date',
-            title: content.attributes.title || 'No title',
-            attributes: content.attributes // rest
-        };
-    });
+    const fmPosts = posts
+        .map(post => {
+            const content = fm(post.data);
+            return {
+                file: `${path.parse(post.file).name}.html`,
+                date: content.attributes.date ?
+                    moment(content.attributes.date).format('YYYY/MM/DD') :
+                    'No date',
+                title: content.attributes.title || 'No title',
+                attributes: content.attributes // rest
+            };
+        })
+        .sort((a, b) => new Date(b.date) - new Date(a.date));
 
     const page = {
         title: 'Blog',
