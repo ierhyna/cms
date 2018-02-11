@@ -1,3 +1,3 @@
-module.exports = function(path) {    
+module.exports = function(path) {
     return path.replace(/\\/g, "/");
 }
