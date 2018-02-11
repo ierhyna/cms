@@ -35,12 +35,13 @@ body {
     font-size: 2.5rem;
 }
 
-p:first-of-type::first-letter {
+article > p:first-of-type::first-letter {
     float: left;
     color: #666;
     margin: 0 6px 0 0;
-    font-size: 96px;    
+    font-size: 96px;
     line-height: 1;
     text-transform: uppercase;
     vertical-align: top;
     font-weight: bold;
+}

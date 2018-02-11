@@ -13,6 +13,7 @@
         "import/no-nodejs-modules": 0,
         "import/no-commonjs": 0,
         "semi": ["error", "always"],
-        "quotes": ["error", "single"]
+        "quotes": ["error", "single"],
+        "no-sync": 0
     }
 }
