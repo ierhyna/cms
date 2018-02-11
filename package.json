@@ -11,5 +11,9 @@
         "make-dir": "^1.1.0",
         "marked": "^0.3.12",
         "moment": "^2.20.1"
+    },
+    "devDependencies": {
+        "eslint": "^4.17.0",
+        "eslint-config-node": "^2.0.0"
     }
 }

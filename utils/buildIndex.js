@@ -13,9 +13,9 @@ function buildIndex(files, options, cache) {
     const fileNames = files.map(file => `${path.parse(file).name}.html`);
 
     const page = {
-      title: 'Blog',
-      files: fileNames,
-    }
+        title: 'Blog',
+        files: fileNames,
+    };
 
     const html = ejs.render(template, {
         template: `./${theme}/blog`,
@@ -25,7 +25,7 @@ function buildIndex(files, options, cache) {
     });
 
     fs.writeFile(`${dest}/index.html`, html, error =>
-        error ? console.log(error) : console.log("file saved as index.html"));
-};
+        error ? console.log(error) : console.log('file saved as index.html'));
+}
 
 module.exports = buildIndex;
