@@ -2,19 +2,31 @@ const ejs = require('ejs');
 const fm = require('front-matter');
 const fs = require('fs');
 const path = require('path');
+const moment = require('moment');
 
-function buildIndex(files, options, cache) {
+function buildIndex(files, options, posts) {
     const {
         dest,
         template,
         theme
     } = options;
 
-    const fileNames = files.map(file => `${path.parse(file).name}.html`);
+
+    const fmPosts = posts.map(post => {
+        const content = fm(post.data);
+        return {
+            file: `${path.parse(post.file).name}.html`,
+            date: content.attributes.date ?
+                moment(content.attributes.date).format('YYYY/MM/DD') :
+                'No date',
+            title: content.attributes.title || 'No title',
+            attributes: content.attributes // rest
+        };
+    });
 
     const page = {
         title: 'Blog',
-        files: fileNames,
+        posts: fmPosts
     };
 
     const html = ejs.render(template, {
