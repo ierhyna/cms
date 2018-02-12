@@ -6,6 +6,7 @@ const buildStatic = require("./utils/buildStatic");
 const buildIndex = require("./utils/buildIndex");
 const log = require("./utils/log");
 const err = require("./utils/err");
+const processImages = require("./utils/processImages");
 
 const config = yaml.safeLoad(fs.readFileSync("config.yaml", "utf8"));
 const theme = `themes/${config.theme}`;
@@ -14,13 +15,17 @@ const options = {
   dest: "_site/",
   template: fs.readFileSync(`${theme}/index.ejs`).toString("utf-8"),
   source: "content/",
+  static: "static/",
+  imageDirectory: "content/images/",
+  imageTarget: "static/images/",
   styles: ["style.css"]
 };
-const files = fileTree(options.source, "md");
+const markdownFiles = fileTree(options.source, "md");
+//const imageFiles = fileTree(options.imageDirectory);
 const blogPostCache = [];
 
 // Process styles
-makeDir.sync(options.dest);
+makeDir.sync(options.imageTarget);
 options.styles.forEach(style =>
   fs.copyFile(
     `${options.theme}/${style}`,
@@ -33,8 +38,10 @@ options.styles.forEach(style =>
   )
 );
 
+processImages(options);
+
 // Process content
-files.forEach(file => {
+markdownFiles.forEach(file => {
   try {
     const data = fs.readFileSync(file, "utf-8");
     buildStatic(file, data, options);
@@ -48,4 +55,4 @@ files.forEach(file => {
 });
 
 // Generate index.html
-buildIndex(files, options, blogPostCache);
+buildIndex(markdownFiles, options, blogPostCache);
