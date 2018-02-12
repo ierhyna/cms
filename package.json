@@ -5,6 +5,7 @@
     "author": "Irina Sokolovskaya",
     "license": "MIT",
     "dependencies": {
+        "chalk": "^2.3.1",
         "ejs": "^2.5.7",
         "front-matter": "^2.3.0",
         "js-yaml": "^3.10.0",
