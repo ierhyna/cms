@@ -34,7 +34,7 @@ module.exports = function(file, markdown, options) {
 
   fs.writeFile(`${dest}/${filename}`, html, error => {
     if (error) {
-      return err(error);
+      return err("Could not create static file", error);
     }
     log(`Saving ${filename}`);
   });

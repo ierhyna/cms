@@ -13,7 +13,7 @@ module.exports = function(markdownFiles, options) {
         data
       });
     } catch (error) {
-      err(`Error processing ${file}, skipping`);
+      err(`Error processing ${file}, skipping`, error);
     }
   });
   return blogPostCache;
