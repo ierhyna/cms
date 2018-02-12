@@ -1,20 +1,21 @@
 {
-    "name": "cms",
-    "version": "1.0.0",
-    "main": "index.js",
-    "author": "Irina Sokolovskaya",
-    "license": "MIT",
-    "dependencies": {
-        "chalk": "^2.3.1",
-        "ejs": "^2.5.7",
-        "front-matter": "^2.3.0",
-        "js-yaml": "^3.10.0",
-        "make-dir": "^1.1.0",
-        "marked": "^0.3.12",
-        "moment": "^2.20.1"
-    },
-    "devDependencies": {
-        "eslint": "^4.17.0",
-        "eslint-config-node": "^2.0.0"
-    }
+  "name": "cms",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Irina Sokolovskaya",
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^2.3.1",
+    "ejs": "^2.5.7",
+    "front-matter": "^2.3.0",
+    "imagemin": "^5.3.1",
+    "js-yaml": "^3.10.0",
+    "make-dir": "^1.1.0",
+    "marked": "^0.3.12",
+    "moment": "^2.20.1"
+  },
+  "devDependencies": {
+    "eslint": "^4.17.0",
+    "eslint-config-node": "^2.0.0"
+  }
 }
