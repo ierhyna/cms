@@ -1,6 +1,7 @@
 const fs = require("fs");
 const yaml = require("js-yaml");
 const makeDir = require("make-dir");
+const del = require("del");
 
 const fileTree = require("./utils/fileTree");
 const processImages = require("./utils/processImages");
@@ -16,9 +17,10 @@ const options = {
   template: fs.readFileSync(`${theme}/index.ejs`).toString("utf-8")
 };
 
+del.sync([options.dest]);
 makeDir.sync(options.dest + options.imageTarget);
-const markdownFiles = fileTree(options.source, "md");
 
+const markdownFiles = fileTree(options.source, "md");
 const blogPostCache = processMarkdown(markdownFiles, options);
 
 processStyles(theme, options);
