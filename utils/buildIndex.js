@@ -40,7 +40,7 @@ function buildIndex(files, options, posts) {
 
   fs.writeFile(`${dest}/index.html`, html, error => {
     if (error) {
-      return err(error);
+      return err("failed to write index.html", error);
     }
     log("Successfully built index.html");
   });

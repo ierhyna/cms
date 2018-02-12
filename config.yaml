@@ -6,3 +6,5 @@ paths:
   static: "static/"
   imageDirectory: "content/images/"
   imageTarget: "static/images/"
+
+verboseLog: true

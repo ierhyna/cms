@@ -7,5 +7,5 @@ module.exports = function(options) {
     `${options.dest}${options.imageTarget}`
   )
     .then(() => log("images copied to static"))
-    .catch(e => err(e));
+    .catch(e => err("image processing failed", e));
 };

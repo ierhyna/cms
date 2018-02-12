@@ -11,7 +11,7 @@ module.exports = function(theme, options) {
         `${options.dest}/${path.parse(style).base}`
       );
     } catch (error) {
-      err(`Could not copy ${path.parse(style).base}`);
+      err(`Could not copy ${path.parse(style).base}`, error);
     }
   });
 };
