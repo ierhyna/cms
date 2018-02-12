@@ -1,41 +1,26 @@
-const fs = require('fs');
-const yaml = require('js-yaml');
-const makeDir = require('make-dir');
-const fileTree = require('./utils/fileTree');
-const buildStatic = require('./utils/buildStatic');
-const buildIndex = require('./utils/buildIndex');
+const fs = require("fs");
+const yaml = require("js-yaml");
+const makeDir = require("make-dir");
 
-const config = yaml.safeLoad(fs.readFileSync('config.yaml', 'utf8'));
-const theme = `themes/${config.theme}`;
+const fileTree = require("./utils/fileTree");
+const processImages = require("./utils/processImages");
+const processStyles = require("./utils/processStyles");
+const buildIndex = require("./utils/buildIndex");
+const processMarkdown = require("./utils/processMarkdown");
+
+const config = yaml.safeLoad(fs.readFileSync("config.yaml", "utf8"));
+const theme = `themes/${config.theme}/`;
 const options = {
-    theme,
-    dest: '_site/',
-    template: fs.readFileSync(`${theme}/index.ejs`).toString('utf-8'),
-    source: 'content/',
-    styles: ['style.css']
+  ...config.paths,
+  theme,
+  template: fs.readFileSync(`${theme}/index.ejs`).toString("utf-8")
 };
-const files = fileTree(options.source, 'md');
-const blogPostCache = [];
 
-// Process styles
-makeDir.sync(options.dest);
-options.styles.forEach(style =>
-    fs.copyFile(`${options.theme}/${style}`, `${options.dest}/${style}`, error =>
-        error && console.log(`Could not copy ${style}: ${error}`)));
+makeDir.sync(options.dest + options.imageTarget);
+const markdownFiles = fileTree(options.source, "md");
 
-// Process content
-files.forEach(file => {
-    try {
-        const data = fs.readFileSync(file, 'utf-8');
-        buildStatic(file, data, options);
-        blogPostCache.push({
-            file,
-            data
-        });
-    } catch (error) {
-        console.log(`Error processing ${file}, skipping`);
-    }
-});
+const blogPostCache = processMarkdown(markdownFiles, options);
 
-// Generate index.html
-buildIndex(files, options, blogPostCache);
+processStyles(theme, options);
+processImages(options);
+buildIndex(markdownFiles, options, blogPostCache);

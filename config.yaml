@@ -1,1 +1,10 @@
 theme: 'one'
+
+paths:
+  dest: "_site/"
+  source: "content/"
+  static: "static/"
+  imageDirectory: "content/images/"
+  imageTarget: "static/images/"
+
+verboseLog: true
