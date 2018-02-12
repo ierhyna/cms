@@ -4,8 +4,7 @@ const ejs = require("ejs");
 const fs = require("fs");
 const moment = require("moment");
 const path = require("path");
-const log = require("./log");
-const err = require("./err");
+const { log, err } = require("./log");
 
 module.exports = function(file, markdown, options) {
   const { dest, template, theme } = options;
