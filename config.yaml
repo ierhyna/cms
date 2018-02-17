@@ -1,4 +1,5 @@
-theme: 'one'
+theme: "one"
+defaultPageType: "post"
 
 paths:
   dest: "_site/"

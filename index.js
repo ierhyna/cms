@@ -14,7 +14,8 @@ const theme = `themes/${config.theme}/`;
 const options = {
   ...config.paths,
   theme,
-  template: fs.readFileSync(`${theme}/index.ejs`).toString("utf-8")
+  template: fs.readFileSync(`${theme}/index.ejs`).toString("utf-8"),
+  defaultPageType: config.defaultPageType
 };
 
 del.sync([options.dest]);
