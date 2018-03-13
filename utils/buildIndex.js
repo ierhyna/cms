@@ -3,10 +3,10 @@ const fm = require("front-matter");
 const fs = require("fs");
 const path = require("path");
 const moment = require("moment");
-const { log, err } = require("./log");
+const {log, err} = require("./log");
 
 function buildIndex(files, options, posts) {
-  const { dest, template, theme } = options;
+  const {dest, template, theme} = options;
 
   const fmPosts = posts
     .map(post => {

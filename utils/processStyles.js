@@ -1,9 +1,9 @@
 const fileTree = require("./fileTree");
-const { err } = require("./log");
+const {err} = require("./log");
 const fs = require("fs");
 const path = require("path");
 
-module.exports = function(theme, options) {
+module.exports = function (theme, options) {
   fileTree(theme, "css").forEach(style => {
     try {
       fs.copyFileSync(

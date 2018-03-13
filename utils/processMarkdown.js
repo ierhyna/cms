@@ -1,9 +1,9 @@
 const buildStatic = require("./buildStatic");
 const fs = require("fs");
 const fm = require("front-matter");
-const { err } = require("./log");
+const {err} = require("./log");
 
-module.exports = function(markdownFiles, options) {
+module.exports = function (markdownFiles, options) {
   const blogPostCache = [];
   markdownFiles.forEach(file => {
     try {
