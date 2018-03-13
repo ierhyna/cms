@@ -1,11 +1,13 @@
-theme: "one"
-defaultPageType: "post"
+theme: one
+defaultPageType: post
 
 paths:
-  dest: "_site/"
-  source: "content/"
-  static: "static/"
-  imageDirectory: "content/images/"
-  imageTarget: "static/images/"
+  dest: _site
+  source: content
+  static: static
+  imageDirectory: content/images
+  imageTarget: static/images
 
 verboseLog: true
+markdownExtension: md
+imageQuality: 80
