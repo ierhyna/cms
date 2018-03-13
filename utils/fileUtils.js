@@ -3,8 +3,9 @@ const {log, err} = require("./log");
 
 function readFile(file, format = "utf-8") {
   try {
-    fs.readFileSync(file, format);
+    const data = fs.readFileSync(file, format);
     log("reading file " + file);
+    return data;
   } catch (error) {
     err(" Could not read file " + file);
   }
