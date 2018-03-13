@@ -2,28 +2,23 @@ const fs = require("fs");
 const yaml = require("js-yaml");
 const makeDir = require("make-dir");
 const del = require("del");
-
-const fileTree = require("./utils/fileTree");
 const processImages = require("./utils/processImages");
 const processStyles = require("./utils/processStyles");
-const buildIndex = require("./utils/buildIndex");
-const processMarkdown = require("./utils/processMarkdown");
+const Site = require("./utils/site");
 
 const config = yaml.safeLoad(fs.readFileSync("config.yaml", "utf8"));
 const theme = `themes/${config.theme}/`;
-const options = {
-  ...config.paths,
-  theme,
-  template: fs.readFileSync(`${theme}/index.ejs`).toString("utf-8"),
-  defaultPageType: config.defaultPageType
-};
+const template = fs.readFileSync(`${theme}/index.ejs`).toString("utf-8");
+const options = {...config, theme, template};
 
-del.sync([options.dest]);
-makeDir.sync(options.dest + options.imageTarget);
+const site = new Site(options);
 
-const markdownFiles = fileTree(options.source, "md");
-const blogPostCache = processMarkdown(markdownFiles, options);
+del.sync([options.paths.dest]);
+makeDir.sync(options.paths.dest + options.paths.imageTarget);
 
 processStyles(theme, options);
 processImages(options);
-buildIndex(markdownFiles, options, blogPostCache);
+
+site.buildHTMLPages();
+site.buildIndex({ignore: ["page"]});
+

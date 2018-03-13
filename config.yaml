@@ -9,3 +9,5 @@ paths:
   imageTarget: "static/images/"
 
 verboseLog: true
+markdownExtension: "md"
+imageQuality: 80
